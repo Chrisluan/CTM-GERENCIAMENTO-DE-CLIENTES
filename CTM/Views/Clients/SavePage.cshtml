@@ -1,0 +1,218 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@300&display=swap" rel="stylesheet">
+<style>
+    
+    body {
+        font-family: 'Teko', sans-serif;
+        background: rgb(82,13,13);
+        background: radial-gradient(circle, rgba(82,13,13,1) 0%, rgba(105,7,7,1) 53%, rgba(80,9,31,1) 100%);
+    }
+    .container{
+        display:inherit;
+    }
+    .container1{
+       font-size: 3vh;
+       margin-top: -10%;
+       text-align:center;
+       align-content:center;
+    }
+    .Inputs{
+        width: 100%;
+        background: rgba(0, 0, 0, 0.16);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(7.9px);
+        -webkit-backdrop-filter: blur(7.9px);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        border-radius: 40px;
+        padding: 60px;
+        text-align:left;
+        justify-content:center;
+        display:inline-grid;
+    }
+    .Input{
+        text-align:center;
+        transition: border ease-in 0.5s;
+        color:white;
+        outline: none;
+        background: rgba(255, 255, 255, 0.21);
+        border-radius: 8px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+        -webkit-backdrop-filter: blur(11.3px);
+        border: 1px solid rgba(255, 255, 255, 0);
+        padding: 2px;
+    }
+    .Input::placeholder{
+        
+        color:rgba(255,255,255, 0.5);
+        text-align:center;
+        font-size: 3vh;
+    }
+    .Input:focus{
+         border: 1px solid rgba(255, 255, 255, 1);
+    }
+    label{
+        color: #FAF4D3;
+    }
+
+    .reg-btn {
+        color:white;
+        background-color: transparent;
+        border:solid 2px rgba(255,255,255,0.2);
+        padding: 20px;
+        margin-top: 5vh;
+        border-radius: 2px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        transition:all ease 1s;
+    }
+    .reg-btn:hover{
+        background-color: rgba(255,255,255,0.2);
+        border: solid 3px rgba(255,255,255,0.5);
+    }
+    .reg-btn:disabled{
+          color: rgba(255,255,255,0.1);
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    .h1{
+        color: #FFFFFA;
+        padding-bottom: 20px;
+        font-size: 50px;
+        position: relative;
+        text-align: center;
+        z-index: -1;
+    }
+
+    .servicesdiv {
+        text-align: center;
+        -webkit-backdrop-filter: blur(11.3px);
+        border: 1px solid rgba(255, 255, 255, 0);
+        padding: 5px;
+    }
+    .services-text {
+        text-align: center;
+        overflow-y:hidden;
+        color:aliceblue;
+        background: rgba(0, 0, 0, 0.16);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(7.9px);
+        -webkit-backdrop-filter: blur(7.9px);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        border-radius: 40px;
+        padding: 60px;
+        font-size:32px;
+        outline:none;
+    }
+    .services-text::placeholder{
+        text-align:center;
+        color:rgba(255,255,255, 1f);
+        font-size:25px;
+    }
+    .valores{
+        justify-content:center;
+        display:flex;
+        text-align:center;
+    }
+
+    #finalvaluedisplay{
+        text-align:center;
+        transition: border ease-in 0.5s;
+        color:white;
+        outline: none;
+        background: rgba(255, 255, 255, 0.21);
+        border-radius: 8px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+        -webkit-backdrop-filter: blur(11.3px);
+        border: 1px solid rgba(255, 255, 255, 0);
+        padding: 2px;
+    }
+</style>
+
+    <div class="container1">
+        <form asp-action="Register">
+
+       
+        <div class="Inputs" id="inputs">
+        <h1 class="h1" style="">REGISTRO DE CLIENTE</h1>
+        <label for="Name">Nome:</label>
+        <input class="Input" autocomplete="off" type="text" name="Nome" placeholder="Nome do(a) cliente" />
+        <label for="telefone">Telefone:</label>
+        <input class="Input" autocomplete="off"  type="text" name="Telefone" placeholder="Telefone" step="none" />
+        <label for="valor">Valor do serviço:</label>
+        <div class="valores">
+
+            <input class="Input" autocomplete="off" type="number" id="real" name="real" placeholder="Real" min="1" step="any" />
+            <input class="Input" autocomplete="off" type="number" id="cent" name="centavos" placeholder="Centavos" min="1" step="any" />
+
+        </div>
+        
+        <label for="formatted">Valor final:</label>
+        <input autocomplete="off" type="text" id="finalvaluedisplay" name="Valor"/>
+
+
+
+        <div class="container-serv">
+        
+        <div class="servicesdiv">
+                <h1 style="width: 100%; color:#FFFFFA; margin-top:50px;">
+                    SERVIÇOS CONTRATADOS
+                </h1>
+           <textarea class="services-text" placeholder="DIGITE AQUI OS SERVIÇOS PRESTADOS" name="Servicos"></textarea>
+        </div>
+    </div>
+            <button class="reg-btn" id="reg-btn" type="submit">REGISTRAR</button>
+    </div>
+    </form>
+
+
+</div>
+<script>
+    let fields = document.getElementsByClassName("Input");
+    let finalValue = document.querySelector('#finalvaluedisplay');
+    let cents = document.querySelector('#cent');
+    let inputField = document.querySelector('#real');
+    document.addEventListener("keydown", (e)=>{
+        if(e.keyCode == 8) return;
+          updateDisplay();
+    });
+    function disableButton(){
+        Array.prototype.forEach.call(fields, function(field){
+
+            if(field.value === ""){
+                console.log("CANNOT REGISTER");
+                document.querySelector("reg-btn").disabled = true;
+            }else{
+                console.log("CAN REGISTER");
+                document.querySelector("reg-btn").disabled = false;
+            }
+
+        });
+    }
+    function updateDisplay(){
+        let amount = Number(inputField.value) + Number(cents.value / 100);
+        let formatted = new Intl.NumberFormat("pt-BR", {
+
+            style: 'currency',
+            currency: 'BRL',
+            currencySign: 'accounting',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 3,
+            
+        }).format(amount);
+        finalValue.value = formatted;
+    }
+    setInterval(disableButton, 5);
+    setInterval(updateDisplay, 600);
+</script>

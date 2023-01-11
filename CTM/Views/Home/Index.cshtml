@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<style>
+    body{
+        color:antiquewhite;
+        background: rgb(82,13,13);
+        background: radial-gradient(circle, rgba(82,13,13,1) 0%, rgba(105,7,7,1) 53%, rgba(80,9,31,1) 100%);
+    }
+    .button-list{
+        text-align:center;
+        justify-items:center;
+        height: 50%;
+        padding: 20px;
+        display:block;
+    }
+    .mp-btn{
+        transition: all 0.5s;
+        border-radius: 10px;
+        color:floralwhite;
+        border: 1px solid rgba(255, 255, 255, 1);
+        background-color: transparent;
+        margin: 20px;
+        padding: 20px;
+    }
+    .mp-btn:hover{
+        font-size: 20px;
+        background-color: rgba(255,255,255, 0.4);
+    }
+    .mp-btn:after:hover{
+        content: '';
+        background-color: white;
+        width: 100%;
+    }
+</style>
+<div class="text-center">
+    <h1 class="display-4">Bem vindo(a) ao Centro Técnico Micaela</h1>
+    <p>Registro e administração de clientes</p>
+    
+    
+</div>
+<li class="button-list">
+    <button class="mp-btn" type="button" onclick="location.href='@Url.Action("SavePage", "Clients")'">REGISTRAR CLIENTE</button>
+    <button class="mp-btn"  type="button" onclick="location.href='@Url.Action("ClientList", "Clients")'">LISTA DE CLIENTES</button>
+</li>
