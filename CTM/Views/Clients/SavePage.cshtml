@@ -169,36 +169,32 @@
                 <h1 style="width: 100%; color:#FFFFFA; margin-top:50px;">
                     SERVIÇOS CONTRATADOS
                 </h1>
-           <textarea class="services-text" placeholder="DIGITE AQUI OS SERVIÇOS PRESTADOS" name="Servicos"></textarea>
+
+                    <textarea onkeyup="textBoxMaxLength(this)" onkeypress="textBoxMaxLength(this)"  id="textboxservice" class="services-text" maxlength="90" placeholder="DIGITE AQUI OS SERVIÇOS PRESTADOS" name="Servicos"></textarea>
+           <h6 id="lengthcounter" style="color:white;">0/90</h6>
         </div>
     </div>
-            <button class="reg-btn" id="reg-btn" type="submit">REGISTRAR</button>
+            <button class="reg-btn" id="reg-btn" type="submit" onclick="location.href='@Url.Action("ClientList", "Clients")'">REGISTRAR</button>
     </div>
     </form>
 
 
 </div>
 <script>
-    let fields = document.getElementsByClassName("Input");
     let finalValue = document.querySelector('#finalvaluedisplay');
     let cents = document.querySelector('#cent');
     let inputField = document.querySelector('#real');
-    document.addEventListener("keydown", (e)=>{
-        if(e.keyCode == 8) return;
+
+    document.addEventListener("keyup", (e)=>{
+          
           updateDisplay();
     });
-    function disableButton(){
-        Array.prototype.forEach.call(fields, function(field){
+    function textBoxMaxLength(textbox){
+        let amountOfLetters =textbox.value.length;
+        document.getElementById("lengthcounter").innerHTML = amountOfLetters + "/90";
+        
 
-            if(field.value === ""){
-                console.log("CANNOT REGISTER");
-                document.querySelector("reg-btn").disabled = true;
-            }else{
-                console.log("CAN REGISTER");
-                document.querySelector("reg-btn").disabled = false;
-            }
-
-        });
+        console.log(amountOfLetters);
     }
     function updateDisplay(){
         let amount = Number(inputField.value) + Number(cents.value / 100);
@@ -213,6 +209,5 @@
         }).format(amount);
         finalValue.value = formatted;
     }
-    setInterval(disableButton, 5);
-    setInterval(updateDisplay, 600);
+    
 </script>

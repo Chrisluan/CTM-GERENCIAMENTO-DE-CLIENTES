@@ -1,51 +1,93 @@
 ﻿@model IEnumerable<Testing.Models.Cliente>
 
-<table class="table">
+
+
+    <style>
+        body{
+            font-family: 'Teko', sans-serif;
+            background: rgb(82,13,13);
+            background: radial-gradient(circle, rgba(82,13,13,1) 0%, rgba(105,7,7,1) 53%, rgba(80,9,31,1) 100%);
+        }
+        .table{
+            background-color: rgba(250,13,13, 0.2);
+            table-layout:auto;
+            max-height: 20px;
+            word-break: break-word;
+        }
+        td{
+            color:white;
+            max-height: 20px;
+            word-break:break-word;
+            vertical-align:middle;
+            text-align: center;
+            width: 20px;
+            border:solid 1px white;
+        }
+        th{
+           font-size:20px;
+            color:white;
+            text-align:center;
+            border: solid 2px white;
+        }
+
+
+    </style>
+<table class="table" id="table">
+    @if (Model.Count() < 1)
+    {
+        <h1 style="text-align:center; font-size: 10vh; color:rgba(255,255,255, 0.8);">NENHUM REGISTRO ENCONTRADO</h1>
+    }
+    else{
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Telefone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Servicos)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Valor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Data)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model) {
+       
             <tr>
-            <td>
-                
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Telefone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Servicos)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Valor)
-            </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Data)
-                </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
+                <th>
+                    @Html.DisplayNameFor(model => model.ID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nome)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Telefone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Servicos)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Valor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Data)
+                </th>
+            </tr>
+       
+    </thead>
+    }
+    <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ID)
+                    </td>
+                    <td>
+
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Telefone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Servicos)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Valor)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Data)
+                    </td>
+                </tr>
+            }
+        
     </tbody>
 </table>
