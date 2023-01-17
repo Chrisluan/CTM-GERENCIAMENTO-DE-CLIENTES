@@ -9,6 +9,7 @@ namespace Testing.Controllers
     {
 
         List<Cliente> clientes = new List<Cliente>();
+        string defaultSearchCmd = @"SELECT TOP (10000) [Nome],[Telefone],[Servicos],[Valor],[Data], [ClienteID] FROM [clientes].[dbo].[tabelaClientes]";
         String connectionString = "Data Source=CHRISLUAN; Initial catalog=clientes; integrated security=SSPI; TrustServerCertificate=True;";
         public IActionResult Index()=> View();
         public IActionResult Register(Cliente cl)
@@ -16,12 +17,13 @@ namespace Testing.Controllers
 
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
-                DateTime date = DateTime.Now;
-                cl.Data = date.ToString("dd/MM/yyyy HH:mm:ss");
+                
                 SqlCommand sqlcmd = new("ClientesProcedure", sqlConnection);
                 sqlcmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                sqlcmd.Parameters.AddWithValue("@Valor", cl.Valor);
+                DateTime date = DateTime.Now;
+                cl.Data = date.ToString("dd/MM/yyyy HH:mm:ss");
+                sqlcmd.Parameters.AddWithValue("@Valor", cl.Valor == null ? "Valor não informado" : cl.Valor);
                 sqlcmd.Parameters.AddWithValue("@Nome", cl.Nome == null ? "Sem nome" : cl.Nome);
                 sqlcmd.Parameters.AddWithValue("@Telefone", cl.Telefone == null ? "Sem telefone" : cl.Telefone);
                 sqlcmd.Parameters.AddWithValue("@Servicos", cl.Servicos == null ? "Servicos não registrados" : cl.Servicos);
@@ -32,26 +34,45 @@ namespace Testing.Controllers
                 sqlConnection.Close();
             }
             FetchData();
-            return RedirectToAction("ClientList");
+            return RedirectToAction("ClientList", clientes);
         }
-        public IActionResult ClientList()
+        public IActionResult ClientList(string search = "", InfoType filter = InfoType.Nome)
         {
             FetchData();
-            return View("ClientList", clientes);
+            return View(FilterClient(search, filter));
+        }
+        public List<Cliente> FilterClient(string search = "", InfoType filterBy = InfoType.Nome)
+        {
+            search = search.ToUpper();
+            List<Cliente> filteredClientsList = new();
+            switch (filterBy)
+            {
+                case InfoType.Nome:
+                    filteredClientsList = search == "" ? clientes : clientes.Where(x => x.Nome.ToUpper().Contains(search)).ToList();
+                    break;
+                case InfoType.Telefone:
+                    filteredClientsList = search == "" ? clientes : clientes.Where(x => x.Telefone.ToUpper().Contains(search)).ToList();
+                    break;
+                case InfoType.Servicos:
+                    filteredClientsList = search == "" ? clientes : clientes.Where(x => x.Servicos.ToUpper().Contains(search)).ToList();
+                    break;
+                case InfoType.Data:
+                    filteredClientsList = search == "" ? clientes : clientes.Where(x => x.Data.ToUpper().StartsWith(search)).ToList();
+                    break;
+            }
+           
+            return filteredClientsList;
         }
         public void FetchData()
         {
             SqlDataReader dr;
-
-
-
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
-                cmd.CommandText = @"SELECT TOP (10000) [Nome],[Telefone],[Servicos],[Valor],[Data], [ClienteID] FROM [clientes].[dbo].[tabelaClientes]";
+                cmd.CommandText = defaultSearchCmd;
                 dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {

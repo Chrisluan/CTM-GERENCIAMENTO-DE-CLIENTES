@@ -8,10 +8,6 @@
         public string Nome { get; set; }
         public string Servicos { get; set; }
         public string? Data { get; set; }
-        public Cliente()
-        {
-
-        }
         
     }
 }
